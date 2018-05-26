@@ -19,13 +19,17 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && apt-get update \
     && apt-get install -y powershell
 
+RUN mkdir -p /var/jenkins_plugins && chown jenkins:jenkins /var/jenkins_plugins
+
 USER jenkins
 
 # Plugins
 # TODO: Clean out this plugins list, to just the bare minimum needed
 COPY config/plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+RUN cp -R /usr/share/jenkins/ref/plugins/ /var/jenkins_plugins
 
+# RUN mv  
 # COPY config/init.groovy.d/*.groovy /usr/share/jenkins/ref/init.groovy.d/
 
 # lets configure Jenkins with some defaults

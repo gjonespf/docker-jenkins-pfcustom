@@ -8,6 +8,7 @@ aws-java-sdk:1.11.264
 azure-ad:0.3.0
 azure-commons:0.2.6
 backup:1.6.1
+bitbucket:1.1.8
 blueocean-autofavorite:1.2.2
 blueocean-bitbucket-pipeline:1.5.0
 blueocean-commons:1.5.0
