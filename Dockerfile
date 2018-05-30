@@ -40,6 +40,7 @@ COPY bootstrap/*.sh /usr/share/jenkins/ref/bootstrap/
 USER root
 RUN chmod a+x /usr/local/bin/jenkins.sh
 RUN chmod a+x /usr/share/jenkins/ref/bootstrap/*.sh
+RUN chown 1000:1000 /usr/share/jenkins/ref/bootstrap/*.sh
 
 USER jenkins
 
