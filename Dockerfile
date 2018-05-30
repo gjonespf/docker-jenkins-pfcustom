@@ -27,7 +27,16 @@ USER jenkins
 # TODO: Clean out this plugins list, to just the bare minimum needed
 COPY config/plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
-RUN cp -R /usr/share/jenkins/ref/plugins/ /var/jenkins_plugins
+
+# Overwrite jenkins setup script with our custom one
+COPY jenkins.sh /usr/local/bin/jenkins.sh
+#RUN chmod a+x /usr/local/bin/jenkins.sh
+
+# Hook scripts
+COPY config/init.groovy.d/*.groovy /usr/share/jenkins/ref/init.groovy.d/
+COPY config/boot-failure.groovy.d/*.groovy /usr/share/jenkins/ref/boot-failure.groovy.d/
+COPY bootstrap/*.sh /usr/share/jenkins/ref/bootstrap/
+#RUN chmod a+x /usr/share/jenkins/ref/bootstrap/*.sh
 
 # RUN mv  
 # COPY config/init.groovy.d/*.groovy /usr/share/jenkins/ref/init.groovy.d/
