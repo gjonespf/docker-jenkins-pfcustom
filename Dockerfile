@@ -38,12 +38,6 @@ COPY config/boot-failure.groovy.d/*.groovy /usr/share/jenkins/ref/boot-failure.g
 COPY bootstrap/*.sh /usr/share/jenkins/ref/bootstrap/
 #RUN chmod a+x /usr/share/jenkins/ref/bootstrap/*.sh
 
-# RUN mv  
-# COPY config/init.groovy.d/*.groovy /usr/share/jenkins/ref/init.groovy.d/
-
-# lets configure Jenkins with some defaults
-# COPY config/*.xml /usr/share/jenkins/ref/
-
 # TODO: Use Jenkins CAAS project
 # TODO: Script to run and Copy bootstrap files?
 # For now, rely on /usr/share/jenkins/ref/
