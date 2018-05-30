@@ -30,13 +30,18 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
 # Overwrite jenkins setup script with our custom one
 COPY jenkins.sh /usr/local/bin/jenkins.sh
-#RUN chmod a+x /usr/local/bin/jenkins.sh
 
 # Hook scripts
 COPY config/init.groovy.d/*.groovy /usr/share/jenkins/ref/init.groovy.d/
 COPY config/boot-failure.groovy.d/*.groovy /usr/share/jenkins/ref/boot-failure.groovy.d/
 COPY bootstrap/*.sh /usr/share/jenkins/ref/bootstrap/
-#RUN chmod a+x /usr/share/jenkins/ref/bootstrap/*.sh
+
+# Just in case the scripts aren't exec
+USER root
+RUN chmod a+x /usr/local/bin/jenkins.sh
+RUN chmod a+x /usr/share/jenkins/ref/bootstrap/*.sh
+
+USER jenkins
 
 # TODO: Use Jenkins CAAS project
 # TODO: Script to run and Copy bootstrap files?
