@@ -1,11 +1,13 @@
-#! /bin/bash -e
-
-: "${JENKINS_WAR:="/usr/share/jenkins/jenkins.war"}"
-: "${JENKINS_HOME:="/var/jenkins_home"}"
+#!/bin/bash
+ 
+#JENKINS_WAR="${JENKINS_WAR:-/usr/share/jenkins/jenkins.war}"
+#JENKINS_HOME="${JENKINS_HOME:-/var/jenkins_home}"
 
 # Run the bootstraps instead
 if [ -d "/usr/share/jenkins/ref/bootstrap/" ]
 then
+    touch "${COPY_REFERENCE_FILE_LOG}" || { echo "Can not write to ${COPY_REFERENCE_FILE_LOG}. Wrong volume permissions?"; exit 1; }
+    echo "--- Running bootstrap at $(date)" >> "$COPY_REFERENCE_FILE_LOG"
     run-parts /usr/share/jenkins/ref/bootstrap/
 else
     touch "${COPY_REFERENCE_FILE_LOG}" || { echo "Can not write to ${COPY_REFERENCE_FILE_LOG}. Wrong volume permissions?"; exit 1; }
