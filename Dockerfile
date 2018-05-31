@@ -36,14 +36,15 @@ COPY config/init.groovy.d/*.groovy /usr/share/jenkins/ref/init.groovy.d/
 COPY config/boot-failure.groovy.d/*.groovy /usr/share/jenkins/ref/boot-failure.groovy.d/
 COPY bootstrap/*.sh /usr/share/jenkins/ref/bootstrap/
 
-# Ensure base dirs created as jenkins, so we can mount if needed
-RUN mkdir -p /var/jenkins_home/jenkins/secrets && mkdir -p /var/jenkins_home/jenkins/plugins && mkdir -p /var/jenkins_home/jenkins/jobs && mkdir -p /var/jenkins_home/jenkins/nodes
-
 # Just in case the scripts aren't exec
 USER root
 RUN chmod a+x /usr/local/bin/jenkins.sh
 RUN chmod a+x /usr/share/jenkins/ref/bootstrap/*.sh
 RUN chown 1000:1000 /usr/share/jenkins/ref/bootstrap/*.sh
+
+# Ensure base dirs created as jenkins, so we can mount if needed
+RUN mkdir -p /usr/share/jenkins/ref/secrets && mkdir -p /usr/share/jenkins/ref/plugins && mkdir -p /usr/share/jenkins/ref/jobs && mkdir -p /usr/share/jenkins/ref/nodes
+RUN touch /usr/share/jenkins/ref/secrets/.placehold.me && touch /usr/share/jenkins/ref/plugins/.placehold.me && touch /usr/share/jenkins/ref/jobs/.placehold.me && touch /usr/share/jenkins/ref/nodes/.placehold.me
 
 # Minio is handy for copying over template files
 RUN			curl -L https://dl.minio.io/client/mc/release/linux-amd64/mc > /usr/local/bin/mc && \
