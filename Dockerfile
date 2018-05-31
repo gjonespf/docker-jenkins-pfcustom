@@ -36,11 +36,22 @@ COPY config/init.groovy.d/*.groovy /usr/share/jenkins/ref/init.groovy.d/
 COPY config/boot-failure.groovy.d/*.groovy /usr/share/jenkins/ref/boot-failure.groovy.d/
 COPY bootstrap/*.sh /usr/share/jenkins/ref/bootstrap/
 
+# Ensure base dirs created as jenkins, so we can mount if needed
+RUN mkdir -p /var/jenkins_home/jenkins/secrets && mkdir -p /var/jenkins_home/jenkins/plugins && mkdir -p /var/jenkins_home/jenkins/jobs && mkdir -p /var/jenkins_home/jenkins/nodes
+
 # Just in case the scripts aren't exec
 USER root
 RUN chmod a+x /usr/local/bin/jenkins.sh
 RUN chmod a+x /usr/share/jenkins/ref/bootstrap/*.sh
 RUN chown 1000:1000 /usr/share/jenkins/ref/bootstrap/*.sh
+
+# Minio is handy for copying over template files
+RUN			curl -L https://dl.minio.io/client/mc/release/linux-amd64/mc > /usr/local/bin/mc && \
+				chmod +x /usr/local/bin/mc
+
+# Let's copy everything as a template
+RUN mkdir -p /var/jenkins_template && chown jenkins:jenkins /var/jenkins_template
+RUN cp -R /var/jenkins_home/* /var/jenkins_template
 
 USER jenkins
 
