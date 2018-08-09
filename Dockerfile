@@ -5,7 +5,7 @@ USER root
 
 # Base stuff required
 RUN apt-get update \
-    && apt-get install curl gnupg apt-transport-https 
+    && apt-get install -y curl gnupg apt-transport-https 
 
 # PowerShell UBU
 # RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
