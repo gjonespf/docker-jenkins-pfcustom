@@ -1,0 +1,10 @@
+{
+  "Versioning": "gitver",
+  "DefaultTag": "latest",
+  "DefaultUser": "gavinjonespf",
+  "DefaultRemote": "pfdockerregistry-on.azurecr.io",
+  "ProjectName": "docker-jenkins-pfcustom",
+  "ProjectCodeName": "docker-jenkins-pfcustom",
+  "ProjectDescription": "Base jenkins setup",
+  "ProjectUrl": "https://github.com/gjonespf/docker-jenkins-pfcustom.git"
+}
