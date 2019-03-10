@@ -56,21 +56,3 @@ Task("PSSign")
             args.Append("Path", BuildParameters.SolutionFilePath);
         });
 });
-
-Task("BuildPackage")
-    .IsDependentOn("Build")
-    .IsDependentOn("PSSign")
-    .IsDependentOn("Package")
-    .Does(() =>
-{
-    //Verbose("ProjClean");
-});
-
-Task("BuildPackagePublish")
-    .IsDependentOn("Build")
-    .IsDependentOn("Package")
-    .IsDependentOn("Publish")
-    .Does(() =>
-{
-    //Verbose("ProjClean");
-});
