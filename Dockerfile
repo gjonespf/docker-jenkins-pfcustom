@@ -50,9 +50,13 @@ RUN touch /usr/share/jenkins/ref/secrets/.placehold.me && touch /usr/share/jenki
 RUN			curl -L https://dl.minio.io/client/mc/release/linux-amd64/mc > /usr/local/bin/mc && \
 				chmod +x /usr/local/bin/mc
 
+# For uuencode, for spitting out secrets and binary configs
+RUN apt-get install -y sharutils nano
+
 # Let's copy everything as a template
 RUN mkdir -p /var/jenkins_template && chown jenkins:jenkins /var/jenkins_template
 RUN cp -R /var/jenkins_home/* /var/jenkins_template
+RUN chown -R 1000:1000 /var/jenkins_home
 
 USER jenkins
 
